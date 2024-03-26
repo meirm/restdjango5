@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  backend:
+    # the application's web service (container) will use an image based on our Dockerfile
+    build: .
+    volumes:
+      - ".:/app:rw"
+      - "./data:/data:rw"
+    # the default command to run whenever the container is launched
+    command: python manage.py runserver 0.0.0.0:8000
+    # the URL 'postgres' or 'mysql' will point to the application's db service
+    # ports:
+    #     - "8000:8000"
+    networks:
+      - djangocmsnet
+
+    env_file: .env-local
+
+networks:
+  djangocmsnet:
